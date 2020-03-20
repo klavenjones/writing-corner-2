@@ -366,6 +366,18 @@ h5 {
   line-height: 2.4rem;
 }
 
+.post-preview__admin {
+  display: flex;
+  justify-content: space-between;
+}
+
+.post-preview__admin-edit {
+  width: 200px;
+
+  display: flex;
+  justify-content: space-evenly;
+}
+
 .pagination__older {
   margin-right: 20px;
   position: relative;

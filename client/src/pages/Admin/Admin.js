@@ -1,14 +1,40 @@
 import React, { Fragment } from "react";
 import "./admin.css";
+import { Switch, Route, NavLink, useRouteMatch } from "react-router-dom";
 import { NewPostForm } from "./NewPostForm";
 import { PostList } from "./PostList";
 
 export const Admin = () => {
+  let { path, url } = useRouteMatch();
+
   return (
     <Fragment>
       <main className="content">
         <aside className="dash-nav">
-          <h3>Sidenav</h3>
+          <NavLink
+            exact
+            to={`${url}/blog-post`}
+            title="Posts"
+            activeStyle={{
+              fontWeight: "bold"
+            }}
+            className="dash-nav__links"
+          >
+            <i className="far fa-newspaper"></i>
+            <p>Blog Posts</p>
+          </NavLink>
+          <NavLink
+            exact
+            to={`${url}/new-post`}
+            title="Posts"
+            activeStyle={{
+              fontWeight: "bold"
+            }}
+            className="dash-nav__links"
+          >
+            <i className="fas fa-plus"></i>
+            <p>Add New Post</p>
+          </NavLink>
         </aside>
         <section className="admin">
           <div className="container">
@@ -18,10 +44,19 @@ export const Admin = () => {
                 <p>Create new content here, and save when you are done.</p>
               </div>
               <div className="admin-section__form">
-                <NewPostForm />
+                <Switch>
+                  <Route exact path={`${path}`}>
+                    <NewPostForm />
+                  </Route>
+                  <Route path={`${url}/new-post`}>
+                    <NewPostForm />
+                  </Route>
+                  <Route path={`${url}/blog-post`}>
+                    <PostList />
+                  </Route>
+                </Switch>
               </div>
             </div>
-            <PostList />
           </div>
         </section>
       </main>

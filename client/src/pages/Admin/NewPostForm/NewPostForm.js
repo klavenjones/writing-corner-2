@@ -26,6 +26,7 @@ export const NewPostForm = () => {
 
   return (
     <Fragment>
+      <p className="post-list__title">Add New Post</p>
       <form onSubmit={onSubmit} className="admin-form">
         <div className="input-group">
           <label htmlFor="title">Title</label>
