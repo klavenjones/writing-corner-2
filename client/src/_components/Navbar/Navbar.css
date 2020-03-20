@@ -1,0 +1,232 @@
+header {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+a {
+  color: #1576d1;
+  text-decoration: none;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+ol,
+ul {
+  list-style-type: none;
+}
+
+.header {
+  background-color: white;
+}
+
+.header .container {
+  position: relative;
+  max-width: 1020px;
+  padding: 0 20px;
+  margin: 0 auto;
+}
+
+.header .container .header-content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 90px;
+  font-family: sans-serif;
+  font-size: 1.8rem;
+  letter-spacing: -0.15px;
+}
+
+.mobile-menu {
+  position: relative;
+  display: block;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: 0;
+}
+.mobile-menu:focus {
+  outline: none;
+}
+
+.mobile-menu__icon,
+.mobile-menu__icon::before,
+.mobile-menu__icon::after {
+  position: absolute;
+  top: 19px;
+  right: 8px;
+  left: 8px;
+  height: 2px;
+  content: "";
+  background: #2e85ff;
+  border-radius: 1px;
+}
+
+.mobile-menu__icon::after {
+  top: 7px;
+  right: 0;
+  left: 0;
+}
+
+.mobile-menu__icon::before {
+  top: -7px;
+  right: 0;
+  left: 0;
+}
+
+.primary-nav {
+  display: none;
+}
+
+.primary-nav__link {
+  padding: 32px 0;
+  color: #324b72;
+  cursor: pointer;
+  user-select: none;
+}
+
+.mobile-link:hover,
+.primary-nav__link:hover {
+  color: #2174ea;
+  text-decoration: none;
+}
+
+.mobile-nav {
+  position: absolute;
+  top: 12px;
+  right: -8px;
+  left: -8px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  pointer-events: none;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px 0 rgba(17, 41, 80, 0.04),
+    0 4px 16px 0 rgba(17, 41, 80, 0.12);
+  opacity: 0;
+  transition: all 0.25s ease;
+  transform: scale(0.95);
+  transform-origin: top right;
+  will-change: opacity, transform;
+}
+
+.mobile-nav--is-open {
+  pointer-events: auto;
+  opacity: 1;
+  transform: scale(1);
+}
+
+.mobile-close-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 3;
+  width: 64px;
+  height: 64px;
+  padding: 0;
+  color: #2e85ff;
+  background-color: transparent;
+  border-radius: 4px;
+  border: 0;
+  cursor: pointer;
+}
+
+.mobile-close-button:focus {
+  outline: none;
+}
+
+.mobile-close-button::after {
+  position: absolute;
+  top: 31px;
+  right: 20px;
+  left: 20px;
+  height: 2px;
+  content: "";
+  background: #2e85ff;
+  border-radius: 1px;
+  transform: rotate(45deg);
+}
+
+.mobile-close-button::after {
+  transform: rotate(-45deg);
+}
+
+.mobile-close-button::before {
+  position: absolute;
+  top: 31px;
+  right: 20px;
+  left: 20px;
+  height: 2px;
+  content: "";
+  background: #2e85ff;
+  border-radius: 1px;
+  transform: rotate(45deg);
+}
+
+.mobile-links {
+  display: flex;
+  padding: 33px 32px 23px 32px;
+}
+
+.mobile-links__column {
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-links__subtitle {
+  margin-bottom: 13px;
+}
+
+.mobile-link {
+  padding: 8px 0;
+  color: #324b72;
+}
+
+.gradient {
+  height: 200px;
+  width: 100%;
+  border-top: 1px solid #e7ebee;
+  /* background-color: #f3f5f7;
+  background-color: #f3f5f7; */
+  /* background-image: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#f3f5f7),
+    to(#fff)
+  );
+  background-image: -webkit-linear-gradient(top, #f3f5f7, #fff);
+  background-image: -moz-linear-gradient(top, #f3f5f7, #fff);
+  background-image: -ms-linear-gradient(top, #f3f5f7, #fff);
+  background-image: -o-linear-gradient(top, #f3f5f7, #fff);
+  background-image: linear-gradient(top, #f3f5f7, #fff);
+  filter: progid:DXImageTransform.Microsoft.gradient(fromStr='#f3f5f7', toStr='#fff'); */
+}
+
+@media (min-width: 468px) {
+  .gradient {
+    height: 400px;
+  }
+}
+
+@media (min-width: 768px) {
+  .mobile-menu {
+    display: none;
+  }
+
+  .primary-nav {
+    display: flex;
+    justify-content: space-between;
+  }
+  .primary-nav__item {
+    position: relative;
+    margin-right: 45px;
+  }
+}
