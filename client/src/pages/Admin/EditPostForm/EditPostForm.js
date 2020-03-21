@@ -1,12 +1,16 @@
 import React, { Fragment, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { Editor } from "@tinymce/tinymce-react";
 
 import dotenv from "dotenv";
 dotenv.config();
 
-export const EditPostForm = () => {
-  const [content, setContent] = useState("Write your post here.");
-  const [title, setTitle] = useState("");
+export const EditPostForm = props => {
+  const location = useLocation();
+  const [content, setContent] = useState(location.state.content);
+  const [title, setTitle] = useState(location.state.title);
+
+  console.log(location.state);
 
   const handleEditorChange = (editorContent, editor) => {
     setContent({ content: editorContent });
@@ -55,9 +59,7 @@ export const EditPostForm = () => {
                 "insertdatetime media table paste code help wordcount"
               ],
               toolbar:
-                "formatselect | bold italic underline code | \
-                alignleft aligncenter alignright alignjustify | \
-                bullist numlist | preview | undo redo"
+                "formatselect | bold italic underline code | alignleft aligncenter alignright alignjustify | bullist numlist | preview | undo redo | removeformat"
             }}
             onEditorChange={handleEditorChange}
           />

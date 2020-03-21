@@ -2,7 +2,7 @@ import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import classnames from "classnames";
 
-export const PostItem = () => {
+export const PostItem = ({ posts: { id, content, title } }) => {
   const [hover, setHover] = useState(false);
   return (
     <Fragment>
@@ -13,9 +13,16 @@ export const PostItem = () => {
               className="post-preview__link"
               onMouseEnter={() => setHover(true)}
               onMouseLeave={() => setHover(false)}
-              to="/post"
+              to={{
+                pathname: `/post`,
+                state: {
+                  id: id,
+                  title: title,
+                  content: content
+                }
+              }}
             >
-              COVID-19 and Infermedica
+              {title}
               <span
                 className={classnames("post-preview__chevron", {
                   "post-preview__chevron--hover": hover
@@ -29,15 +36,11 @@ export const PostItem = () => {
           </h2>
         </header>
         <section>
-          <p className="post-preview__excerpt">
-            COVID-19 is more than just a hot topic today. It is a global
-            emergency requiring the entire world community’s focus and
-            commitment to contain and eventually lessen its impact on public...
-          </p>
+          <p className="post-preview__excerpt">{content}</p>
         </section>
         <footer className="post-preview__meta">
           <a href="/about-me">Curtis Jones</a> on{" "}
-          <time datetime="2020-03-10">Mar. 10, 2020</time>
+          <time dateTime="2020-03-10">Mar. 10, 2020</time>
         </footer>
       </article>
     </Fragment>

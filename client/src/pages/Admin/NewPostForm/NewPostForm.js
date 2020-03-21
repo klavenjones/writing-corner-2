@@ -56,9 +56,7 @@ export const NewPostForm = () => {
                 "insertdatetime media table paste code help wordcount"
               ],
               toolbar:
-                "formatselect | bold italic underline code | \
-                alignleft aligncenter alignright alignjustify | \
-                bullist numlist | preview | undo redo"
+                "formatselect | bold italic underline code | alignleft aligncenter alignright alignjustify | bullist numlist | preview | undo redo | removeformat"
             }}
             onEditorChange={handleEditorChange}
           />

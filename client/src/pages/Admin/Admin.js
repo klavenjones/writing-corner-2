@@ -1,8 +1,10 @@
 import React, { Fragment } from "react";
 import "./admin.css";
-import { Switch, Route, NavLink, useRouteMatch } from "react-router-dom";
+import { Switch, Route, useRouteMatch } from "react-router-dom";
 import { NewPostForm } from "./NewPostForm";
+import { EditPostForm } from "./EditPostForm";
 import { PostList } from "./PostList";
+import { Post } from "../Post";
 
 export const Admin = () => {
   let { path, url } = useRouteMatch();
@@ -10,32 +12,6 @@ export const Admin = () => {
   return (
     <Fragment>
       <main className="content">
-        <aside className="dash-nav">
-          <NavLink
-            exact
-            to={`${url}/blog-post`}
-            title="Posts"
-            activeStyle={{
-              fontWeight: "bold"
-            }}
-            className="dash-nav__links"
-          >
-            <i className="far fa-newspaper"></i>
-            <p>Blog Posts</p>
-          </NavLink>
-          <NavLink
-            exact
-            to={`${url}/new-post`}
-            title="Posts"
-            activeStyle={{
-              fontWeight: "bold"
-            }}
-            className="dash-nav__links"
-          >
-            <i className="fas fa-plus"></i>
-            <p>Add New Post</p>
-          </NavLink>
-        </aside>
         <section className="admin">
           <div className="container">
             <div className="admin-section">
@@ -52,7 +28,10 @@ export const Admin = () => {
                     <NewPostForm />
                   </Route>
                   <Route path={`${url}/blog-post`}>
-                    <PostList />
+                    <PostList url={url} />
+                  </Route>
+                  <Route path={`${url}/edit-post`}>
+                    <EditPostForm />
                   </Route>
                 </Switch>
               </div>

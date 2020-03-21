@@ -2,7 +2,7 @@ import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import classnames from "classnames";
 
-export const PostItem = ({ posts: { id, title, content } }) => {
+export const PostItem = ({ url, posts: { id, title, content } }) => {
   const [hover, setHover] = useState(false);
   return (
     <Fragment>
@@ -13,7 +13,14 @@ export const PostItem = ({ posts: { id, title, content } }) => {
               className="post-preview__link"
               onMouseEnter={() => setHover(true)}
               onMouseLeave={() => setHover(false)}
-              to="/post"
+              to={{
+                pathname: `/post`,
+                state: {
+                  id: id,
+                  title: title,
+                  content: content
+                }
+              }}
             >
               {title}
               <span
@@ -34,12 +41,12 @@ export const PostItem = ({ posts: { id, title, content } }) => {
         <footer className="post-preview__meta post-preview__admin">
           <div className="post-preview__admin-author">
             <a href="/about-me">Curtis Jones</a> on{" "}
-            <time datetime="2020-03-10">Mar. 10, 2020</time>
+            <time dateTime="2020-03-10">Mar. 10, 2020</time>
           </div>
           <div className="post-preview__admin-edit">
             <Link
               to={{
-                pathname: "/edit-post",
+                pathname: `${url}/edit-post`,
                 state: {
                   id: id,
                   title: title,
@@ -50,7 +57,18 @@ export const PostItem = ({ posts: { id, title, content } }) => {
               Edit
             </Link>
             <a href="/about-me">Delete</a>
-            <Link to="/about-me">View</Link>
+            <Link
+              to={{
+                pathname: `/post`,
+                state: {
+                  id: id,
+                  title: title,
+                  content: content
+                }
+              }}
+            >
+              View
+            </Link>
           </div>
         </footer>
       </article>

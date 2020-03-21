@@ -6,7 +6,97 @@ import "./Navbar.css";
 
 export const Navbar = () => {
   const [show, setShow] = useState(false);
+  const [auth, setAuth] = useState(false);
+  let url = "/admin";
+  const authLinks = (
+    <Fragment>
+      <li className="primary-nav__item">
+        <NavLink
+          exact
+          to={`${url}/blog-post`}
+          title="Posts"
+          activeStyle={{
+            fontWeight: "bold"
+          }}
+          className="primary-nav__link"
+        >
+          <p>Blog Posts</p>
+        </NavLink>
+      </li>
+      <li className="primary-nav__item">
+        <NavLink
+          exact
+          to={`${url}/new-post`}
+          title="Posts"
+          activeStyle={{
+            fontWeight: "bold"
+          }}
+          className="primary-nav__link"
+        >
+          <p>Add New Post</p>
+        </NavLink>
+      </li>
+      <li className="primary-nav__item">
+        <a href="#" className="primary-nav__link">
+          Sign Out
+        </a>
+      </li>
+    </Fragment>
+  );
 
+  const publicLinks = (
+    <Fragment>
+      <li className="primary-nav__item">
+        <NavLink
+          exact
+          to={"/"}
+          title="About"
+          activeStyle={{
+            fontWeight: "bold"
+          }}
+          className="primary-nav__link"
+        >
+          About Me
+        </NavLink>
+      </li>
+      <li className="primary-nav__item">
+        <NavLink
+          exact
+          to={"/posts"}
+          title="Posts"
+          activeStyle={{
+            fontWeight: "bold"
+          }}
+          className="primary-nav__link"
+        >
+          Posts
+        </NavLink>
+      </li>
+    </Fragment>
+  );
+
+  const mobileAuthLinks = (
+    <Fragment>
+      <Link to={`${url}/new-post`} className="mobile-link">
+        Add New Post
+      </Link>
+      <Link to={`${url}/blog-post`} className="mobile-link">
+        Blog Posts
+      </Link>
+      <a className="mobile-link">Sign Out</a>
+    </Fragment>
+  );
+
+  const mobilePublicLinks = (
+    <Fragment>
+      <Link to="/" className="mobile-link">
+        About Me
+      </Link>
+      <Link to="/posts" className="mobile-link">
+        Posts
+      </Link>
+    </Fragment>
+  );
   return (
     <Fragment>
       <header className="header">
@@ -17,34 +107,7 @@ export const Navbar = () => {
                 <h6>Curtis Sillo</h6>
               </div>
             </Link>
-            <ul className="primary-nav">
-              <li className="primary-nav__item">
-                <NavLink
-                  exact
-                  to={"/"}
-                  title="About"
-                  activeStyle={{
-                    fontWeight: "bold"
-                  }}
-                  className="primary-nav__link"
-                >
-                  About Me
-                </NavLink>
-              </li>
-              <li className="primary-nav__item">
-                <NavLink
-                  exact
-                  to={"/posts"}
-                  title="Posts"
-                  activeStyle={{
-                    fontWeight: "bold"
-                  }}
-                  className="primary-nav__link"
-                >
-                  Posts
-                </NavLink>
-              </li>
-            </ul>
+            <ul className="primary-nav">{auth ? authLinks : publicLinks}</ul>
             <button className="mobile-menu" onClick={() => setShow(true)}>
               <span className="mobile-menu__icon"></span>
             </button>
@@ -62,12 +125,7 @@ export const Navbar = () => {
                   <p className="subtitle mobile-links__subtitle">
                     Writing Corner
                   </p>
-                  <Link to="/" className="mobile-link">
-                    About Me
-                  </Link>
-                  <Link to="/posts" className="mobile-link">
-                    Posts
-                  </Link>
+                  {auth ? mobileAuthLinks : mobilePublicLinks}
                 </div>
               </div>
             </div>
