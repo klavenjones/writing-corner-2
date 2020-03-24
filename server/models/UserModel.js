@@ -96,13 +96,4 @@ UserSchema.methods.generatePasswordReset = function() {
   this.reset_password_expiration = Date.now() + 3600000; //expires in an hour
 };
 
-UserSchema.methods.generateVerificationToken = function() {
-  let payload = {
-    userId: this._id,
-    token: crypto.randomBytes(20).toString("hex")
-  };
-
-  return new Token(payload);
-};
-
 module.exports = mongoose.model("User", UserSchema);
