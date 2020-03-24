@@ -24,22 +24,23 @@ module.exports = {
   /**
    * UserController.show()
    */
-  show: function(req, res) {
-    var id = req.params.id;
-    UserModel.findOne({ _id: id }, function(err, User) {
-      if (err) {
-        return res.status(500).json({
-          message: "Error when getting User.",
-          error: err
-        });
+  show: async function(req, res) {
+    try {
+      let errors = {};
+      const user = await UserModel.findOne({ _id: req.user.id }).populate({
+        path: "posts",
+        select: ["title", "text"]
+      });
+      if (!user) {
+        errors.message = "There is no such user";
+        res.status(500).json(errors);
       }
-      if (!User) {
-        return res.status(404).json({
-          message: "No such User"
-        });
-      }
-      return res.json(User);
-    });
+      res.status(200).json(user);
+    } catch (error) {
+      let errors = {};
+      errors.message = "Error getting user";
+      res.status(500).json(errors);
+    }
   },
 
   /**

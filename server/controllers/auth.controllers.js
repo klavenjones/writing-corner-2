@@ -14,7 +14,8 @@ module.exports = {
           .status(401)
           .json({ message: "Invalid Email and Password Combination" });
       // Generate Token
-      const token = user.generateJWT();
+      const token = await user.generateJWT();
+      console.log(token);
       res.cookie("access_token", token, {
         httpOnly: true
       });
@@ -48,5 +49,8 @@ module.exports = {
     res.clearCookie("access_token");
     // console.log('I managed to get here!');
     res.json({ success: true });
+  },
+  checkAuth: async (req, res, next) => {
+    res.status(200).json({ success: true });
   }
 };

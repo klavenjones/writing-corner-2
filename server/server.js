@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cookierParser = require("cookie-parser");
 const cors = require("cors");
+const passport = require("passport");
 
 require("dotenv").config();
 
@@ -23,6 +24,7 @@ app.use(
     credentials: true
   })
 );
+
 app.use(
   bodyParser.urlencoded({
     extended: true
@@ -32,10 +34,15 @@ app.use(bodyParser.json());
 
 app.use(morgan("dev"));
 
+// Passport Config
+app.use(passport.initialize());
+require("./config/passport")(passport);
+
 //Routes
 app.use("/api/users", require("./routes/user.routes"));
 app.use("/api/password", require("./routes/password.routes"));
 app.use("/api/auth", require("./routes/auth.routes"));
+app.use("/api/post", require("./routes/post.routes"));
 
 //Starting Server
 const port = process.env.PORT || 5000;

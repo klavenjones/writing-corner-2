@@ -30,7 +30,8 @@ var UserSchema = new Schema(
     reset_password_expiration: {
       type: Date,
       required: false
-    }
+    },
+    posts: [{ type: Schema.Types.ObjectId, ref: "Post" }]
   },
   { timestamps: true }
 );
