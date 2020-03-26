@@ -153,7 +153,11 @@ textarea {
   }
 
   .admin-section__form {
-    max-width: 500px;
+    max-width: 800px;
+  }
+
+  .admin-section__login {
+    max-width: 400px;
   }
 }
 
