@@ -7,7 +7,7 @@ const cors = require("cors");
 const passport = require("passport");
 const path = require("path");
 
-require("dotenv").config();
+// require("dotenv").config();
 
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.DB_URL, {
