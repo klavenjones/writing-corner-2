@@ -114,9 +114,7 @@ const Navbar = ({ auth: { isAuthenticated } }) => {
                 <h6>Curtis Sillo</h6>
               </div>
             </Link> */}
-            <div class="header__logo">
-              
-            </div>
+            <div className="header__logo"></div>
             <ul className="primary-nav">
               {isAuthenticated ? authLinks : publicLinks}
             </ul>
