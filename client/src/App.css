@@ -403,9 +403,18 @@ h5 {
   font-size: 10px;
 }
 
-.active{
-  font-weight: 900;
-  font-size: 2.25rem;
+.active {
+  font-weight: 700;
+  font-size: larger;
+  color: #324b72;
+}
+
+strong {
+  font-weight: bold;
+}
+
+em {
+  font-style: italic;
 }
 
 @media screen and (min-width: 468px) {

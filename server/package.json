@@ -7,10 +7,10 @@
   "license": "MIT",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server/server.js",
-    "client-dev": "npm start --prefix client",
-    "start-dev": "concurrently \"npm run server-dev\" \"npm run client-dev\"",
-    "server-dev": "cross-env NODE_ENV=prod nodemon server/server.js"
+   "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "cd ../client && yarn start",
+    "dev": "concurrently \"yarn server\"  \"yarn client\""
   },
   "dependencies": {
     "@sendgrid/mail": "^6.5.5",

@@ -1,9 +1,10 @@
 const User = require("../models/UserModel");
-
+const Posts = require("../models/PostModel");
 module.exports = {
   signIn: async (req, res, next) => {
     try {
       const { email, password } = req.body;
+      console.log(password);
       const user = await User.findOne({ email });
       //Check if Admin exists
       if (!user) return res.status(401).json("Current Admin does not exist");
@@ -15,11 +16,12 @@ module.exports = {
           .json({ message: "Invalid Email and Password Combination" });
       // Generate Token
       const token = await user.generateJWT();
-      console.log(token);
       res.cookie("access_token", token, {
+        maxAge: 900000,
         httpOnly: true
       });
-      return res.status(200).json({ success: user });
+
+      return res.status(200).json({ success: true });
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
@@ -51,6 +53,9 @@ module.exports = {
     res.json({ success: true });
   },
   checkAuth: async (req, res, next) => {
-    res.status(200).json({ success: true });
+    let user = req.user;
+    let posts = await Posts.find({ "author.id": req.user.id });
+    user.password = null;
+    res.status(200).json({ success: true, user: user });
   }
 };

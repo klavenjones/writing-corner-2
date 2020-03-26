@@ -1,9 +1,20 @@
 import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
+import { Parser } from "html-to-react";
+
 import classnames from "classnames";
 
-export const PostItem = ({ url, posts: { id, title, content } }) => {
+const htmlToReactParser = new Parser();
+
+export const PostItem = ({ url, posts: { _id, title, text }, onDelete }) => {
   const [hover, setHover] = useState(false);
+  let excerpt = text
+    .split(" ")
+    .splice(0, 40)
+    .join(" ")
+    .concat("...");
+  const reactElement = htmlToReactParser.parse(excerpt);
+
   return (
     <Fragment>
       <article className="post-preview">
@@ -16,9 +27,9 @@ export const PostItem = ({ url, posts: { id, title, content } }) => {
               to={{
                 pathname: `/post`,
                 state: {
-                  id: id,
+                  id: _id,
                   title: title,
-                  content: content
+                  text: text
                 }
               }}
             >
@@ -36,7 +47,7 @@ export const PostItem = ({ url, posts: { id, title, content } }) => {
           </h2>
         </header>
         <section>
-          <p className="post-preview__excerpt">{content}</p>
+          <p className="post-preview__excerpt">{reactElement}</p>
         </section>
         <footer className="post-preview__meta post-preview__admin">
           <div className="post-preview__admin-author">
@@ -48,22 +59,24 @@ export const PostItem = ({ url, posts: { id, title, content } }) => {
               to={{
                 pathname: `${url}/edit-post`,
                 state: {
-                  id: id,
+                  id: _id,
                   title: title,
-                  content: content
+                  text: text
                 }
               }}
             >
               Edit
             </Link>
-            <a href="/about-me">Delete</a>
+            <a className="delete" onClick={() => onDelete(_id)}>
+              Delete
+            </a>
             <Link
               to={{
                 pathname: `/post`,
                 state: {
-                  id: id,
+                  id: _id,
                   title: title,
-                  content: content
+                  text: text
                 }
               }}
             >

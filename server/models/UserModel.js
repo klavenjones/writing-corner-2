@@ -40,27 +40,11 @@ var UserSchema = new Schema(
 UserSchema.pre("save", async function(next) {
   try {
     //Generate Salt
-    const salt = await bcrypt.genSalt(10);
+    const salt = await bcrypt.genSalt(8);
     //Hash Password
-    const hashPassword = await bcrypt.hash(this.password, salt);
+    const hashPassword = await bcrypt.hashSync(this.password, salt, null);
     // Reassign hashed version over the original
     this.password = hashPassword;
-    next();
-  } catch (error) {
-    next(error);
-  }
-});
-
-//Hash the password before saving it to the database
-UserSchema.pre("update", async function(next) {
-  try {
-    let updatedUser = this._update;
-    //Generate Salt
-    const salt = await bcrypt.genSalt(10);
-    //Hash Password
-    const hashPassword = await bcrypt.hash(updatedUser.password, salt);
-    // Reassign hashed version over the original
-    updatedUser.password = hashPassword;
     next();
   } catch (error) {
     console.log("Line 64");
@@ -68,14 +52,45 @@ UserSchema.pre("update", async function(next) {
   }
 });
 
+//Hash the password before saving it to the database
+// UserSchema.pre("update", async function(next) {
+//   try {
+//     let updatedUser = this._update;
+//     //Generate Salt
+//     const salt = await bcrypt.genSalt(10);
+//     //Hash Password
+//     const hashPassword = await bcrypt.hashSync(
+//       updatedUser.password,
+//       salt,
+//       null
+//     );
+//     // Reassign hashed version over the original
+//     updatedUser.password = hashPassword;
+//     next();
+//   } catch (error) {
+//     console.log("Line 64");
+//     next(error);
+//   }
+// });
+
 //Create a method to validate password before signing in
 UserSchema.methods.isValidPassword = async function(newPassword) {
   try {
-    return await bcrypt.compare(newPassword, this.password);
+    console.log(newPassword);
+    console.log(bcrypt.compareSync(newPassword, this.password));
+    return bcrypt.compareSync(newPassword, this.password);
   } catch (error) {
     throw new Error(error);
   }
 };
+
+// UserSchema.statics.generateHash = function generateHash(password) {
+//   return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+// };
+
+// UserSchema.methods.isValidPassword = function validatePassword(pass) {
+//   return bcrypt.compareSync(pass, this.password);
+// };
 
 UserSchema.methods.generateJWT = async function() {
   const today = new Date();

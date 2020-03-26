@@ -1,93 +1,33 @@
 import React, { Fragment, useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
-import { PostItem } from "./PostItem";
 
-export const Posts = () => {
+import { PostItem } from "./PostItem";
+import { getPosts } from "../../_actions";
+import { connect } from "react-redux";
+
+const Posts = ({
+  auth: { isAuthenticated },
+  history,
+  getPosts,
+  post: { postings }
+}) => {
   const [posts, setPosts] = useState([]);
   const [offset, setOffset] = useState(0);
   const [elements, setElements] = useState([]);
-  const [perPage, setPerPage] = useState(5);
+  const [perPage, setPerPage] = useState(4);
   const [currentPage, setCurrentPage] = useState(0);
   const [pageCount, setPageCount] = useState(0);
 
-  const postings = [
-    {
-      id: 1,
-      title: "We testing our software",
-      content:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap "
-    },
-    {
-      id: 2,
-      title: "Im coding",
-      content:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap"
-    },
-    {
-      id: 3,
-      title: "We still testing our software",
-      content:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the lea"
-    },
-    {
-      id: 4,
-      title: "We testing our software",
-      content:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap "
-    },
-    {
-      id: 5,
-      title: "Im coding",
-      content:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap"
-    },
-    {
-      id: 6,
-      title: "We still testing our software",
-      content:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the lea"
-    },
-    {
-      id: 7,
-      title: "We testing our software",
-      content:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap "
-    },
-    {
-      id: 8,
-      title: "Im coding",
-      content:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap"
-    },
-    {
-      id: 9,
-      title: "We still testing our software",
-      content:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the lea"
-    },
-    {
-      id: 10,
-      title: "We testing our software",
-      content:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap "
-    },
-    {
-      id: 11,
-      title: "Im coding",
-      content:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap"
-    },
-    {
-      id: 12,
-      title: "We still testing our software",
-      content:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the lea"
+  useEffect(() => {
+    if (isAuthenticated) {
+      history.push("/admin");
     }
-  ];
+    getPosts();
+  }, []);
 
   useEffect(() => {
     setPostings(postings);
-  }, []);
+  }, [postings]);
 
   useEffect(() => {
     setElementsOnCurrentPage();
@@ -105,8 +45,7 @@ export const Posts = () => {
   const setElementsOnCurrentPage = () => {
     let element = posts
       .slice(offset, offset + perPage)
-      .map(( post, i) => <PostItem key={i} posts={post} />);
-
+      .map((post, i) => <PostItem key={i} posts={post} />);
     setElements(element);
   };
 
@@ -165,3 +104,20 @@ export const Posts = () => {
     </Fragment>
   );
 };
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+  post: state.post
+});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getPosts: () => {
+      dispatch(getPosts());
+    }
+  };
+};
+
+const PostsContainer = connect(mapStateToProps, mapDispatchToProps)(Posts);
+
+export { PostsContainer as Posts };

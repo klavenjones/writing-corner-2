@@ -1,12 +1,16 @@
 import React, { Fragment, useState } from "react";
 import { NavLink, Link } from "react-router-dom";
+import { connect } from "react-redux";
+
+import { stores } from "../../_helpers/store";
+import { authActions } from "../../_actions";
 
 import classnames from "classnames";
 import "./Navbar.css";
 
-export const Navbar = () => {
+const Navbar = ({ auth: { isAuthenticated } }) => {
   const [show, setShow] = useState(false);
-  const [auth, setAuth] = useState(false);
+
   let url = "/admin";
   const authLinks = (
     <Fragment>
@@ -16,7 +20,7 @@ export const Navbar = () => {
           to={`${url}/blog-post`}
           title="Posts"
           activeStyle={{
-            fontWeight: "bold"
+            fontWeight: "500"
           }}
           className="primary-nav__link"
         >
@@ -29,7 +33,7 @@ export const Navbar = () => {
           to={`${url}/new-post`}
           title="Posts"
           activeStyle={{
-            fontWeight: "bold"
+            fontWeight: "500"
           }}
           className="primary-nav__link"
         >
@@ -37,7 +41,10 @@ export const Navbar = () => {
         </NavLink>
       </li>
       <li className="primary-nav__item">
-        <a href="#" className="primary-nav__link">
+        <a
+          onClick={() => stores.dispatch(authActions.logOut())}
+          className="primary-nav__link"
+        >
           Sign Out
         </a>
       </li>
@@ -52,7 +59,7 @@ export const Navbar = () => {
           to={"/"}
           title="About"
           activeStyle={{
-            fontWeight: "bold"
+            fontWeight: "500"
           }}
           className="primary-nav__link"
         >
@@ -65,7 +72,7 @@ export const Navbar = () => {
           to={"/posts"}
           title="Posts"
           activeStyle={{
-            fontWeight: "bold"
+            fontWeight: "500"
           }}
           className="primary-nav__link"
         >
@@ -107,7 +114,9 @@ export const Navbar = () => {
                 <h6>Curtis Sillo</h6>
               </div>
             </Link>
-            <ul className="primary-nav">{auth ? authLinks : publicLinks}</ul>
+            <ul className="primary-nav">
+              {isAuthenticated ? authLinks : publicLinks}
+            </ul>
             <button className="mobile-menu" onClick={() => setShow(true)}>
               <span className="mobile-menu__icon"></span>
             </button>
@@ -125,7 +134,7 @@ export const Navbar = () => {
                   <p className="subtitle mobile-links__subtitle">
                     Writing Corner
                   </p>
-                  {auth ? mobileAuthLinks : mobilePublicLinks}
+                  {isAuthenticated ? mobileAuthLinks : mobilePublicLinks}
                 </div>
               </div>
             </div>
@@ -136,3 +145,11 @@ export const Navbar = () => {
     </Fragment>
   );
 };
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+const NavbarContainer = connect(mapStateToProps, null)(Navbar);
+
+export { NavbarContainer as Navbar };

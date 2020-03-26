@@ -1,20 +1,24 @@
 import React, { Fragment, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { connect } from "react-redux";
 import { Editor } from "@tinymce/tinymce-react";
+import { Input } from "../../../_components";
+
+import { editPost } from "../../../_actions";
 
 import dotenv from "dotenv";
 dotenv.config();
 
-export const EditPostForm = props => {
+const EditPostForm = ({ editPost }) => {
   const location = useLocation();
-  const [content, setContent] = useState(location.state.content);
+  const [text, setText] = useState(location.state.text);
   const [title, setTitle] = useState(location.state.title);
 
   console.log(location.state);
 
   const handleEditorChange = (editorContent, editor) => {
-    setContent({ content: editorContent });
-    console.log(content);
+    setText({ text: editorContent });
+    console.log(text);
   };
 
   const handleInputChange = e => {
@@ -24,8 +28,11 @@ export const EditPostForm = props => {
 
   const onSubmit = e => {
     e.preventDefault();
-    console.log(content);
-    console.log(title);
+    const data = {
+      title,
+      text: text
+    };
+    editPost(data, location.state.id);
   };
 
   return (
@@ -33,20 +40,20 @@ export const EditPostForm = props => {
       <form onSubmit={onSubmit} className="admin-form">
         <div className="input-group">
           <label htmlFor="title">Title</label>
-          <input
+          <Input
             id="title"
             type="text"
             name="title"
             value={title}
             className="full-width"
             onChange={handleInputChange}
-          ></input>
+          />
         </div>
         <div className="input-group">
           <label htmlFor="Post">Post</label>
           <Editor
             apiKey={process.env.REACT_APP_TINY_API}
-            initialValue={content}
+            initialValue={text}
             textareaName="Post"
             init={{
               height: 500,
@@ -65,9 +72,29 @@ export const EditPostForm = props => {
           />
         </div>
         <div className="input-group">
-          <button className="admin-form__submit full-width">Save Post</button>
+          <button className="admin-form__submit full-width">Edit Post</button>
         </div>
       </form>
     </Fragment>
   );
 };
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+  post: state.post
+});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    editPost: (data, id) => {
+      dispatch(editPost(data, id));
+    }
+  };
+};
+
+const EditPostFormContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(EditPostForm);
+
+export { EditPostFormContainer as EditPostForm };

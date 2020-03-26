@@ -1,7 +1,15 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { PostFooter } from "../../_components";
 
-export const About = () => {
+import { connect } from "react-redux";
+
+const About = ({ auth: { isAuthenticated }, history }) => {
+  useEffect(() => {
+    if (isAuthenticated) {
+      history.push("/admin");
+    }
+  }, [isAuthenticated]);
+
   return (
     <Fragment>
       <main className="content">
@@ -35,3 +43,11 @@ export const About = () => {
     </Fragment>
   );
 };
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+const AboutContainer = connect(mapStateToProps, null)(About);
+
+export { AboutContainer as About };

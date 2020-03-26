@@ -1,9 +1,19 @@
 import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
+import moment from "moment";
 import classnames from "classnames";
 
-export const PostItem = ({ posts: { id, content, title } }) => {
+import { Parser } from "html-to-react";
+const htmlToReactParser = new Parser();
+
+export const PostItem = ({ posts: { id, text, title, createdAt } }) => {
   const [hover, setHover] = useState(false);
+  let excerpt = text
+    .split(" ")
+    .splice(0, 40)
+    .join(" ")
+    .concat("...");
+  const reactElement = htmlToReactParser.parse(excerpt);
   return (
     <Fragment>
       <article className="post-preview">
@@ -18,7 +28,7 @@ export const PostItem = ({ posts: { id, content, title } }) => {
                 state: {
                   id: id,
                   title: title,
-                  content: content
+                  text: text
                 }
               }}
             >
@@ -36,11 +46,11 @@ export const PostItem = ({ posts: { id, content, title } }) => {
           </h2>
         </header>
         <section>
-          <p className="post-preview__excerpt">{content}</p>
+          <p className="post-preview__excerpt">{reactElement}</p>
         </section>
         <footer className="post-preview__meta">
-          <a href="/about-me">Curtis Jones</a> on{" "}
-          <time dateTime="2020-03-10">Mar. 10, 2020</time>
+          <Link to="/">Curtis Jones</Link> on{" "}
+          {moment(createdAt).format("MMM Do YYYY")}
         </footer>
       </article>
     </Fragment>

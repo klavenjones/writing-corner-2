@@ -1,16 +1,20 @@
 import React, { Fragment, useState } from "react";
+import { Input } from "../../../_components";
 import { Editor } from "@tinymce/tinymce-react";
+import { addPost } from "../../../_actions";
+
+import { connect } from "react-redux";
 
 import dotenv from "dotenv";
 dotenv.config();
 
-export const NewPostForm = () => {
-  const [content, setContent] = useState("Write your post here.");
+const NewPostForm = ({ addPost }) => {
+  const [text, setText] = useState("Write your post here.");
   const [title, setTitle] = useState("");
 
   const handleEditorChange = (editorContent, editor) => {
-    setContent({ content: editorContent });
-    console.log(content);
+    setText({ text: editorContent });
+    console.log(text);
   };
 
   const handleInputChange = e => {
@@ -20,8 +24,11 @@ export const NewPostForm = () => {
 
   const onSubmit = e => {
     e.preventDefault();
-    console.log(content);
-    console.log(title);
+    const data = {
+      title,
+      text: text
+    };
+    addPost(data);
   };
 
   return (
@@ -30,20 +37,20 @@ export const NewPostForm = () => {
       <form onSubmit={onSubmit} className="admin-form">
         <div className="input-group">
           <label htmlFor="title">Title</label>
-          <input
+          <Input
             id="title"
             type="text"
             name="title"
             value={title}
             className="full-width"
             onChange={handleInputChange}
-          ></input>
+          />
         </div>
         <div className="input-group">
           <label htmlFor="Post">Post</label>
           <Editor
             apiKey={process.env.REACT_APP_TINY_API}
-            initialValue={content}
+            initialValue={text}
             textareaName="Post"
             init={{
               height: 500,
@@ -68,3 +75,23 @@ export const NewPostForm = () => {
     </Fragment>
   );
 };
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+  post: state.post
+});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addPost: data => {
+      dispatch(addPost(data));
+    }
+  };
+};
+
+const NewPostFormContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(NewPostForm);
+
+export { NewPostFormContainer as NewPostForm };
