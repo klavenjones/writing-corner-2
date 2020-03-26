@@ -5,7 +5,7 @@ import { authActions } from "./";
 export const getPosts = () => {
   return async dispatch => {
     try {
-      const response = await axios.get("http://localhost:5001/api/post/");
+      const response = await axios.get("/api/post/");
       dispatch({
         type: postConstants.GET_POSTS,
         payload: response.data
@@ -22,7 +22,7 @@ export const getPosts = () => {
 export const addPost = data => {
   return async dispatch => {
     try {
-      await axios.post("http://localhost:5001/api/post/", data);
+      await axios.post("/api/post/", data);
       dispatch(authActions.loadProfile());
     } catch (err) {
       dispatch({
@@ -36,7 +36,7 @@ export const addPost = data => {
 export const editPost = (data, id) => {
   return async dispatch => {
     try {
-      await axios.put(`http://localhost:5001/api/post/${id}`, data);
+      await axios.put(`/api/post/${id}`, data);
       dispatch(authActions.loadProfile());
     } catch (err) {
       dispatch({
@@ -50,7 +50,7 @@ export const editPost = (data, id) => {
 export const deletePost = id => {
   return async dispatch => {
     try {
-      await axios.delete(`http://localhost:5001/api/post/${id}`);
+      await axios.delete(`/api/post/${id}`);
       dispatch(authActions.loadProfile());
     } catch (err) {
       dispatch({
@@ -64,7 +64,7 @@ export const deletePost = id => {
 export const getPost = payload => {
   return async dispatch => {
     try {
-      const response = await axios.put("http://localhost:5001/api/post/");
+      const response = await axios.put("/api/post/");
       dispatch({
         type: postConstants.EDIT_POST,
         payload: response.data

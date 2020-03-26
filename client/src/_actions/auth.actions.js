@@ -12,10 +12,7 @@ export const authActions = {
 function signIn(data, history) {
   return async dispatch => {
     try {
-      const response = await axios.post(
-        "http://localhost:5001/api/auth/login",
-        data
-      );
+      const response = await axios.post("/api/auth/login", data);
       dispatch({
         type: userConstants.AUTH_SIGN_IN,
         payload: response.data
@@ -33,7 +30,7 @@ function signIn(data, history) {
 
 function logOut() {
   return async dispatch => {
-    await axios.get("http://localhost:5001/api/auth/logout");
+    await axios.get("/api/auth/logout");
     dispatch({
       type: userConstants.AUTH_SIGN_OUT
     });
@@ -43,7 +40,7 @@ function logOut() {
 function loadProfile() {
   return async dispatch => {
     try {
-      let response = await axios.get("http://localhost:5001/api/auth/status");
+      let response = await axios.get("/api/auth/status");
       dispatch({
         type: userConstants.GET_USER,
         payload: response.data
@@ -57,7 +54,7 @@ function loadProfile() {
 function checkAuth() {
   return async dispatch => {
     try {
-      await axios.get("http://localhost:5001/api/auth/status");
+      await axios.get("/api/auth/status");
       dispatch({ type: userConstants.AUTH_SIGN_IN });
     } catch (err) {
       console.log(err);

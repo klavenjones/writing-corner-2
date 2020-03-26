@@ -47,7 +47,6 @@ UserSchema.pre("save", async function(next) {
     this.password = hashPassword;
     next();
   } catch (error) {
-    console.log("Line 64");
     next(error);
   }
 });
@@ -68,7 +67,7 @@ UserSchema.pre("save", async function(next) {
 //     updatedUser.password = hashPassword;
 //     next();
 //   } catch (error) {
-//     console.log("Line 64");
+
 //     next(error);
 //   }
 // });
@@ -76,8 +75,6 @@ UserSchema.pre("save", async function(next) {
 //Create a method to validate password before signing in
 UserSchema.methods.isValidPassword = async function(newPassword) {
   try {
-    console.log(newPassword);
-    console.log(bcrypt.compareSync(newPassword, this.password));
     return bcrypt.compareSync(newPassword, this.password);
   } catch (error) {
     throw new Error(error);

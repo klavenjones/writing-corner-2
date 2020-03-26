@@ -4,7 +4,6 @@ module.exports = {
   signIn: async (req, res, next) => {
     try {
       const { email, password } = req.body;
-      console.log(password);
       const user = await User.findOne({ email });
       //Check if Admin exists
       if (!user) return res.status(401).json("Current Admin does not exist");
@@ -32,7 +31,6 @@ module.exports = {
     let user = await User.findOne({ email });
     //If the user exists then send an errors
     if (user) {
-      console.log(user);
       return res.status(409).json({ error: "User Already exists" });
     }
     //If not lets save this user to the database
@@ -49,7 +47,6 @@ module.exports = {
   },
   signOut: async (req, res, next) => {
     res.clearCookie("access_token");
-    // console.log('I managed to get here!');
     res.json({ success: true });
   },
   checkAuth: async (req, res, next) => {

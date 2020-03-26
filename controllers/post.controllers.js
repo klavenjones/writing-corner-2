@@ -72,7 +72,7 @@ module.exports = {
 
       res.status(201).json(Post);
     } catch (error) {
-      console.log(error);
+      res.status(500).send(error);
     }
   },
 
@@ -82,7 +82,7 @@ module.exports = {
   update: function(req, res) {
     var id = req.params.id;
     const { text, title } = req.body;
-    console.log(id);
+
     PostModel.findOne({ _id: id }, function(err, Post) {
       if (err) {
         return res.status(500).json({
@@ -96,8 +96,6 @@ module.exports = {
         });
       }
 
-      // console.log(req.body);
-      console.log("LINE 100", text);
       Post.title = title ? title : Post.title;
       Post.text = text ? text : Post.text;
 
