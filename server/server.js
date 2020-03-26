@@ -32,8 +32,6 @@ app.use(
 );
 app.use(bodyParser.json());
 
-app.use(morgan("dev"));
-
 // Passport Config
 app.use(passport.initialize());
 require("./config/passport")(passport);

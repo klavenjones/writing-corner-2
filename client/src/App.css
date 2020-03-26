@@ -106,6 +106,7 @@ main {
 
 body {
   line-height: 1;
+  background-color: #fdfffc;
 }
 
 ol,
@@ -161,7 +162,7 @@ h2,
 h3,
 h4,
 h5 {
-  color: #2a333c;
+  color: #4c5454;
   font-weight: 600;
   font-style: normal;
 }
@@ -272,7 +273,7 @@ h5 {
   font-family: "PT Serif", Georgia, serif;
   font-size: 1.6rem;
   line-height: 2.6rem;
-  color: #2a333c;
+  color: #4c5454;
   margin-bottom: 12px;
 }
 
@@ -304,14 +305,14 @@ h5 {
 }
 
 .post__footer a {
-  color: #2a333c;
+  color: #4c5454;
 }
 
 .post__share a {
   margin-top: 9px;
 }
 .post__footer a {
-  color: #2a333c;
+  color: #4c5454;
 }
 .post__share-link {
   width: 40px;
@@ -338,14 +339,14 @@ h5 {
 .post-preview__link {
   display: block;
   text-decoration: none;
-  color: #2a333c;
+  color: #4c5454;
 }
 
 .post-preview__excerpt {
   font-family: "PT Serif", Georgia, serif;
   font-size: 1.6rem;
   line-height: 2.6rem;
-  color: #2a333c;
+  color: #4c5454;
   margin-bottom: 13px;
 }
 
@@ -406,7 +407,7 @@ h5 {
 .active {
   font-weight: 700;
   font-size: larger;
-  color: #324b72;
+  color: #1b998b;
 }
 
 strong {

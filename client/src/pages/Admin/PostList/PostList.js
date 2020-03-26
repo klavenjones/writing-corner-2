@@ -12,7 +12,7 @@ const PostList = ({ url, getPosts, post: { postings }, history }) => {
   const [posts, setPosts] = useState([]);
   const [offset, setOffset] = useState(0);
   const [elements, setElements] = useState([]);
-  const [perPage, setPerPage] = useState(3);
+  const [perPage] = useState(3);
   const [currentPage, setCurrentPage] = useState(0);
   const [pageCount, setPageCount] = useState(0);
 
@@ -90,7 +90,6 @@ const PostList = ({ url, getPosts, post: { postings }, history }) => {
         pageRangeDisplayed={pageCount}
         marginPagesDisplayed={pageCount}
         breakLabel={<span className="gap">...</span>}
-        marginPagesDisplayed={2}
         pageCount={pageCount}
         onPageChange={handlePageClick.bind(this)}
         forcePage={currentPage}

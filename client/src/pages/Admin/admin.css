@@ -11,7 +11,7 @@ textarea {
   font-family: inherit;
   font-size: 16px;
   line-height: 1.5;
-  color: #324b72;
+  color: #1B998B;
   border: 1px solid #d6dbe4;
   border-radius: 4px;
   outline: 0;
@@ -70,7 +70,7 @@ textarea {
 .post-list__title {
   font-size: 14px;
   font-weight: 600;
-  color: #7b8ba5;
+  color: #4C5454;
   text-transform: uppercase;
   letter-spacing: 0.15px;
   margin-top: 50px;
@@ -91,7 +91,7 @@ textarea {
   -webkit-box-pack: justify;
   justify-content: space-between;
   padding: 24px 0;
-  color: #324b72;
+  color: #1B998B;
   border-top: 1px solid #eaeef2;
   -webkit-transition: color 0.25s ease;
   transition: color 0.25s ease;
@@ -108,7 +108,7 @@ textarea {
 }
 
 .post-item__edit button {
-  color: #7b8ba5;
+  color: #4C5454;
   cursor: pointer;
   font-size: 1.75rem;
   background: transparent;
@@ -135,7 +135,7 @@ textarea {
   color: #fff;
   text-decoration: none;
   white-space: nowrap;
-  background-color: #2e85ff;
+  background-color: #1B998B;
   cursor: pointer;
   border: none;
   border-radius: 15px;

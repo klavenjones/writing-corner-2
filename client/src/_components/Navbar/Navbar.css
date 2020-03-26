@@ -7,7 +7,7 @@ header {
 }
 
 a {
-  color: #1576d1;
+  color: #1b998b;
   text-decoration: none;
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
@@ -43,6 +43,16 @@ ul {
   letter-spacing: -0.15px;
 }
 
+.header__logo {
+  background-image: url("../../writing-corner_logo.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  width: 200px;
+  height: 50px;
+  color: #1b998b;
+}
+
 .mobile-menu {
   position: relative;
   display: block;
@@ -64,7 +74,7 @@ ul {
   left: 8px;
   height: 2px;
   content: "";
-  background: #2e85ff;
+  background: #1b998b;
   border-radius: 1px;
 }
 
@@ -86,14 +96,14 @@ ul {
 
 .primary-nav__link {
   padding: 32px 0;
-  color: #324b72;
+  color: #1b998b;
   cursor: pointer;
   user-select: none;
 }
 
 .mobile-link:hover,
 .primary-nav__link:hover {
-  color: #2174ea;
+  color: #4c5454;
   text-decoration: none;
 }
 
@@ -131,7 +141,7 @@ ul {
   width: 64px;
   height: 64px;
   padding: 0;
-  color: #2e85ff;
+  color: #1b998b;
   background-color: transparent;
   border-radius: 4px;
   border: 0;
@@ -149,7 +159,7 @@ ul {
   left: 20px;
   height: 2px;
   content: "";
-  background: #2e85ff;
+  background: #1b998b;
   border-radius: 1px;
   transform: rotate(45deg);
 }
@@ -165,7 +175,7 @@ ul {
   left: 20px;
   height: 2px;
   content: "";
-  background: #2e85ff;
+  background: #1b998b;
   border-radius: 1px;
   transform: rotate(45deg);
 }
@@ -186,7 +196,7 @@ ul {
 
 .mobile-link {
   padding: 8px 0;
-  color: #324b72;
+  color: #1b998b;
 }
 
 .gradient {

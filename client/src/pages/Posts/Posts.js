@@ -14,7 +14,7 @@ const Posts = ({
   const [posts, setPosts] = useState([]);
   const [offset, setOffset] = useState(0);
   const [elements, setElements] = useState([]);
-  const [perPage, setPerPage] = useState(4);
+  const [perPage] = useState(4);
   const [currentPage, setCurrentPage] = useState(0);
   const [pageCount, setPageCount] = useState(0);
 
@@ -79,7 +79,6 @@ const Posts = ({
         pageRangeDisplayed={pageCount}
         marginPagesDisplayed={pageCount}
         breakLabel={<span className="gap">...</span>}
-        marginPagesDisplayed={2}
         pageCount={pageCount}
         onPageChange={handlePageClick.bind(this)}
         forcePage={currentPage}

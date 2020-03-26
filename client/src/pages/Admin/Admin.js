@@ -4,7 +4,7 @@ import { Switch, Route, useRouteMatch } from "react-router-dom";
 import { NewPostForm } from "./NewPostForm";
 import { EditPostForm } from "./EditPostForm";
 import { PostList } from "./PostList";
-import { Post } from "../Post";
+
 import { connect } from "react-redux";
 
 import { authActions } from "../../_actions";
