@@ -57,7 +57,6 @@ function checkAuth() {
       await axios.get("/api/auth/status");
       dispatch({ type: userConstants.AUTH_SIGN_IN });
     } catch (err) {
-      console.log(err);
       dispatch({ type: userConstants.AUTH_ERROR, payload: err });
     }
   };

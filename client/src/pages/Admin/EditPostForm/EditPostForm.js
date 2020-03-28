@@ -5,34 +5,58 @@ import { Editor } from "@tinymce/tinymce-react";
 import { Input } from "../../../_components";
 
 import { editPost } from "../../../_actions";
+import FormValidator from "../../../_helpers/validation";
 
 import dotenv from "dotenv";
 dotenv.config();
 
 const EditPostForm = ({ editPost }) => {
+  //SET UP FORM CRITERIA
+  const validator = new FormValidator([
+    {
+      field: "title",
+      method: "isEmpty",
+      validWhen: false,
+      message: "Title is required."
+    },
+    {
+      field: "text",
+      method: "isEmpty",
+      validWhen: false,
+      message: "This entry cannot be empty"
+    }
+  ]);
   const location = useLocation();
   const [text, setText] = useState(location.state.text);
   const [title, setTitle] = useState(location.state.title);
-
-  console.log(location.state);
+  const [errors, setErrors] = useState({});
 
   const handleEditorChange = (editorContent, editor) => {
-    setText({ text: editorContent });
-    console.log(text);
+    setText(editorContent);
   };
 
   const handleInputChange = e => {
     setTitle(e.target.value);
-    console.log(title);
   };
 
   const onSubmit = e => {
     e.preventDefault();
+    setErrors({});
     const data = {
       title,
-      text: text
+      text
     };
-    editPost(data, location.state.id);
+    //handle validation
+    const formValidation = validator.validate(data);
+    if (formValidation.isValid) {
+      let savedData = {
+        title,
+        text: text
+      };
+      editPost(savedData, location.state.id);
+    } else {
+      setErrors(formValidation);
+    }
   };
 
   return (
@@ -45,6 +69,7 @@ const EditPostForm = ({ editPost }) => {
             type="text"
             name="title"
             value={title}
+            error={Object.keys(errors).length > 0 ? errors.title.message : ""}
             className="full-width"
             onChange={handleInputChange}
           />
@@ -70,6 +95,9 @@ const EditPostForm = ({ editPost }) => {
             }}
             onEditorChange={handleEditorChange}
           />
+          {errors.text && (
+            <div className="invalid-feedback">{errors.text.message}</div>
+          )}
         </div>
         <div className="input-group">
           <button className="admin-form__submit full-width">Edit Post</button>

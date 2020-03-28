@@ -11,7 +11,6 @@ export const auth = (state = DEFAULT_STATE, action) => {
   const { type, payload } = action;
   switch (type) {
     case userConstants.GET_USER:
-      console.log(payload);
       return {
         ...state,
         isAuthenticated: !isEmpty(payload),

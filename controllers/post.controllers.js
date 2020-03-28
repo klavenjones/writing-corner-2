@@ -61,7 +61,7 @@ module.exports = {
 
       let Post = new PostModel({
         title: title,
-        text: text.text,
+        text: text,
         author: {
           id: user._id,
           name: `${user.firstname} ${user.lastname}`

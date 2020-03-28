@@ -10,7 +10,6 @@ export const post = (state = DEFAULT_STATE, action) => {
   const { type, payload } = action;
   switch (type) {
     case postConstants.GET_POSTS:
-      console.log(payload);
       return {
         ...state,
         postings: payload

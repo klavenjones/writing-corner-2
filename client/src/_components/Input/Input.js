@@ -34,9 +34,7 @@ export const Input = ({
         required={required}
         disabled={disabled}
         invalid={invalid}
-        className={classnames("full-width input", {
-          "is-error": error
-        })}
+        className={classnames("full-width input")}
       />
       {info && <div className="text-muted">{info}</div>}
       {error && <div className="invalid-feedback">{error}</div>}
