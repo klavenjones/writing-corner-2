@@ -11,7 +11,7 @@
     "classnames": "^2.2.6",
     "dotenv": "^8.2.0",
     "html-react": "^0.0.17",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-markdown": "^4.3.1",
